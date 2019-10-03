@@ -60,7 +60,8 @@ public class WordApp {
 	    txt.add(missed);
 	    txt.add(scr);
       
-	    final JTextField textEntry = new JTextField("",20);
+		final JTextField textEntry = new JTextField("",20);
+		textEntry.setEnabled(false); // disable until start is pressed
 	   textEntry.addActionListener(new ActionListener()
 	    { // Add listener to the text box for when enter is pressed
 	      public void actionPerformed(ActionEvent evt) {
@@ -77,6 +78,7 @@ public class WordApp {
 	   
 	   txt.add(textEntry);
 	   txt.setMaximumSize( txt.getPreferredSize() );
+	  
 	   g.add(txt);
 	    
 	    JPanel b = new JPanel();
@@ -87,6 +89,7 @@ public class WordApp {
 		startB.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent e)
 		      {
+				  textEntry.setEnabled(true); // only be active when button is pressed
 		    	  w.setRunning(true);
 		    	  for(WordRecord word: words) {
 		    		  word.setDropped(true);
@@ -104,9 +107,11 @@ public class WordApp {
 		    	  for(WordRecord word: words) {
 		    		  word.resetWord();
 		    	  }
-		    	  score.resetScore();
+		    	  
 		    	  w.repaint();
-		    	  JOptionPane.showMessageDialog(frame, "Game over!, Final score: "+score.getScore());
+				  JOptionPane.showMessageDialog(frame, "Game over! Final score: "+score.getScore());
+				  textEntry.setEnabled(false); // reset to not active
+				  score.resetScore();
 		      }
 		    });
 		JButton quitB = new JButton("Quit");
@@ -212,7 +217,7 @@ public class WordApp {
 			    	}
 			    	score.resetScore();
 			    	w.repaint();
-			    	JOptionPane.showMessageDialog(frame, "Game over!");
+			    	JOptionPane.showMessageDialog(frame, "Game over! Final score: "+score.getScore());
 				}
 			}
 			catch(Exception e) {

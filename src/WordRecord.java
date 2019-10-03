@@ -88,8 +88,8 @@ public class WordRecord {
 		dropped = false;
 		resetPos();
 		text=dict.getNewWord();
-		fallingSpeed=(int)(Math.random() * (maxWait-minWait)+minWait);
-		//System.out.println(getWord() + " falling speed = " + getSpeed());
+		this.fallingSpeed=(int)(Math.random() * (maxWait-minWait)+minWait);
+		
 	}
 	
 	public synchronized boolean matchWord(String typedText) {
