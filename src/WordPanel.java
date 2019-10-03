@@ -1,13 +1,7 @@
-package skeletonCodeAssgnmt2;
-
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.concurrent.CountDownLatch;
+import java.awt.Graphics;
 
-import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class WordPanel extends JPanel implements Runnable {
@@ -15,6 +9,7 @@ public class WordPanel extends JPanel implements Runnable {
 		private WordRecord[] words;
 		private int noWords;
 		private int maxY;
+		private boolean running;
 
 		
 		public void paintComponent(Graphics g) {
@@ -29,23 +24,35 @@ public class WordPanel extends JPanel implements Runnable {
 		   //draw the words
 		   //animation must be added 
 		    for (int i=0;i<noWords;i++){	    	
-		    	//g.drawString(words[i].getWord(),words[i].getX(),words[i].getY());	
 		    	g.drawString(words[i].getWord(),words[i].getX(),words[i].getY()+20);  //y-offset for skeleton so that you can see the words	
 		    }
 		   
-		  }
+		}
+		
+		public void setRunning(boolean running) {
+			this.running = running;
+		}
 		
 		WordPanel(WordRecord[] words, int maxY) {
 			this.words=words; //will this work?
 			noWords = words.length;
 			done=false;
-			this.maxY=maxY;		
+			this.maxY=maxY;
+			this.running = false;
 		}
 		
 		public void run() {
-			//add in code to animate this
+			while(true) {
+				try {
+					Thread.sleep(10);
+					if(running) {
+						repaint();
+					}
+				}
+				catch(Exception e) {
+					e.printStackTrace();
+				}
+			}
 		}
 
 	}
-
-

@@ -1,5 +1,3 @@
-package skeletonCodeAssgnmt2;
-
 public class WordRecord {
 	private String text;
 	private  int x;
@@ -18,10 +16,10 @@ public class WordRecord {
 	WordRecord() {
 		text="";
 		x=0;
-		y=0;	
+		y=0;
 		maxY=300;
-		dropped=false;
-		fallingSpeed=(int)(Math.random() * (maxWait-minWait)+minWait); 
+		fallingSpeed=(int)(Math.random() * (maxWait-minWait)+minWait);
+		dropped = false;
 	}
 	
 	WordRecord(String text) {
@@ -36,12 +34,14 @@ public class WordRecord {
 	}
 	
 // all getters and setters must be synchronized
+	//returns true if at maxY, false otherwise
 	public synchronized  void setY(int y) {
 		if (y>maxY) {
 			y=maxY;
-			dropped=true;
 		}
-		this.y=y;
+		else {
+			this.y=y;
+		}
 	}
 	
 	public synchronized  void setX(int x) {
@@ -50,6 +50,14 @@ public class WordRecord {
 	
 	public synchronized  void setWord(String text) {
 		this.text=text;
+	}
+	
+	public synchronized  void setDropped(boolean dropped) {
+		this.dropped = dropped;
+	}
+	
+	public synchronized  boolean getDropped() {
+		return dropped;
 	}
 
 	public synchronized  String getWord() {
@@ -77,12 +85,11 @@ public class WordRecord {
 	}
 
 	public synchronized void resetWord() {
+		dropped = false;
 		resetPos();
 		text=dict.getNewWord();
-		dropped=false;
-		fallingSpeed=(int)(Math.random() * (maxWait-minWait)+minWait); 
+		fallingSpeed=(int)(Math.random() * (maxWait-minWait)+minWait);
 		//System.out.println(getWord() + " falling speed = " + getSpeed());
-
 	}
 	
 	public synchronized boolean matchWord(String typedText) {
@@ -95,13 +102,13 @@ public class WordRecord {
 			return false;
 	}
 	
-
-	public synchronized  void drop(int inc) {
+	public synchronized boolean drop(int inc) {
 		setY(y+inc);
+		if(y >= maxY) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
-	
-	public synchronized  boolean dropped() {
-		return dropped;
-	}
-
 }
