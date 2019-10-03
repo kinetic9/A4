@@ -5,6 +5,7 @@ import java.awt.Graphics;
 import javax.swing.JPanel;
 
 public class WordPanel extends JPanel implements Runnable {
+		private static final long serialVersionUID = 1L;
 		public static volatile boolean done;
 		private WordRecord[] words;
 		private int noWords;
