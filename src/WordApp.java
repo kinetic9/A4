@@ -89,7 +89,8 @@ public class WordApp {
 		startB.addActionListener(new ActionListener() {
 		      public void actionPerformed(ActionEvent e)
 		      {
-				  textEntry.setEnabled(true); // only be active when button is pressed
+				  textEntry.setEnabled(true);// only be active when button is pressed
+				  startB.setEnabled(false);
 		    	  w.setRunning(true);
 		    	  for(WordRecord word: words) {
 		    		  word.setDropped(true);
@@ -112,6 +113,7 @@ public class WordApp {
 				  JOptionPane.showMessageDialog(frame, "Game over! Final score: "+score.getScore());
 				  textEntry.setEnabled(false); // reset to not active
 				  score.resetScore();
+				  startB.setEnabled(true);
 		      }
 		    });
 		JButton quitB = new JButton("Quit");
@@ -173,10 +175,17 @@ public class WordApp {
 			assert(totalWords>=noWords); // this could be done more neatly
 			tmpDict=getDictFromFile(args[2]); //file of words
 		}
-		else { //for testing
-			totalWords = 10;  //total words to fall
-			noWords = 5; // total words falling at any point
-			tmpDict = getDictFromFile("example_dict.txt"); //file of words
+		else { //if no file has been specified 
+
+
+			String [] theDict = {"litchi","banana","apple","mango","pear","orange","strawberry",
+		"cherry","lemon","apricot","peach","guava","grape","kiwi","quince","plum","prune",
+		"cranberry","blueberry","rhubarb","fruit","grapefruit","kumquat","tomato","berry",
+		"boysenberry","loquat","avocado"}; //default dictionary
+
+			totalWords = theDict.length;  //total words to fall
+			noWords = 8; // total words falling at any point
+			tmpDict = theDict; //file of words
 		}
 		if (tmpDict!=null)
 			dict= new WordDictionary(tmpDict);
@@ -215,9 +224,10 @@ public class WordApp {
 					for(WordRecord word: words) {
 						word.resetWord();
 			    	}
-			    	score.resetScore();
+			    	
 			    	w.repaint();
-			    	JOptionPane.showMessageDialog(frame, "Game over! Final score: "+score.getScore());
+					JOptionPane.showMessageDialog(frame, "Game over! Final score: "+score.getScore());
+					score.resetScore();
 				}
 			}
 			catch(Exception e) {
