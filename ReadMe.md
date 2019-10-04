@@ -1,11 +1,13 @@
-To run
+## To run using make, runs default dictinary
 
-## make run **Doesn't work yet**
+make clean
+make build
+make run
 
-## args takes dictinary size, number of words to be visible, file to read from
+## to use an external file
 
-cd src
+## change args (inside the makefile) takes dictinary size, number of words to be visible, file to read from
 
-javac \*.java
-
-java WordApp 10 8 example_dict.txt
+make clean
+make build
+make run_args
